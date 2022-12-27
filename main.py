@@ -5,6 +5,7 @@ for item in items:
 	print(item["text"])
 
 
+# 变量名不能以数字开头！！
 if True:
 	print('吃沙拉')
 else:
