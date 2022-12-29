@@ -80,6 +80,13 @@ print(c) # [1, 2, 3, 4, 5, 6]
 print(c * 3) # 重复 3 次
 
 
+# 🔥列表的解构赋值, 数量得一致！！
+well = ['水', '火', '风', '土']
+a, b, c, d = well
+print(a, b, c, d) # 水 火 风 土
+
+
+
 # 🔥 嵌套列表
 matrix = [[999,2], [3,4,5]] # 写法一
 matrix2 = [[999,2], 
@@ -111,13 +118,107 @@ print(zz is yy) # False
 
 
 # 🔥列表推导式 (比如每个元素都 X 2)
-# 简陋的方案
+# 简陋的方法一:
 List = [8,9]
 for i in range(len(List)):#⚡️⚡️分配每个元素的索引值, 比如这里就是获得了索引值为 0、1, 然后 i = 0, i = 1!!
 	List[i] = List[i] * 2
 print(List)
 
-# 列表推导式的方法 (👍从程序上速度更快！)
+
+# 简陋的方法二:
+oho = []
+for i in range(10):
+	oho.append(i) # 每次迭代添加一个数字
+print(oho) # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+# 用列表推导式的方法创建数组 (👍从程序上速度更快！)
 List2 = [8,9]
 List2 = [i * 2 for i in List2]
-print(List2)
+print(List2) # [16, 18]
+
+
+xx = [i+1 for i in range(10)]
+print('推导出数组:', xx) # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
+
+# 用列表推导式的方法从二维数组中提取出第 2 个数据
+matrix2 = [[999,2], 
+		  [3,4,5]] 
+
+result2 = [row[1] for row in matrix2]
+print(result2) # [2, 4]
+
+
+
+# 列表推导式中添加 if 条件
+even = [i for i in range(10) if i % 2 == 0] # 从 0 到 10 中取出偶数
+print(even) # [0, 2, 4, 6, 8]
+
+even2 = [i+1 for i in range(10) if i % 2 == 0] # 从 0 到 10 中取出奇数
+print(even2) # [1, 3, 5, 7, 9]
+
+
+# 列表推导式中添加 if 条件, 推导出 A 开头的人名
+name = ['Amy', 'Bob', 'Candy', 'David', 'Eva', 'Frank']
+# ANamePerson = [i for i in name if i.startswith('A')]
+ANamePerson = [w for w in name if w[0] == 'A']
+print(ANamePerson) # ['Amy']
+
+
+
+
+# 嵌套推导, 把二维列表降级为一维列表
+matrix3 = [ [999,2], 
+			[888,3], 
+			[777,4],
+		 ]
+
+flat = [col for row in matrix3 
+			for col in row
+		]
+
+print(flat) # [999, 2, 888, 3, 777, 4]
+
+
+
+# 嵌套推导并进行运算 -> 笛卡尔乘积（可以枚举所有正交情况）
+result4 = [x + y for x in 'abc' for y in 'def']
+print(result4) # ['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf']
+
+
+
+
+# 🔥元组(列表数组有的方法元组基本都有，但是不支持修改，只可以【读取】,但可以把列表放在元组内进行修改)
+arr = (1,2,3,'这是一个元组')
+
+arr2 = ((1,2),(3,4,'这一个嵌套元组'))
+
+arr3 = arr[:3] # 切片
+print(arr3) # (1, 2)
+
+arr4 = [A for A in arr2 if A[0] == 1 ]# 元组的列表推导式, 把 index 为 0 是 1 的元组提取出来
+print(arr4) # [(1, 2), (3, 4, '这一个嵌套元组')]
+
+
+# 🔥元组的解包（类比解构赋值, 数量得一致！！）
+tup = (1,2,'这是一个元组包')
+x,y,z = tup # 解包(列表也支持)
+print(x,y,z) # 这是一个元组包 2 1
+
+
+a,b,c = 'Zen'
+print(a,b,c) # Z e n
+
+
+# 多重赋值
+x, y = 1, 2
+
+
+# 把列表放在元组内进行修改
+aa = [1,2]
+bb = [3,4]
+cc = (aa,bb)
+cc[0][0] = 999
+print(cc) # ([999, 2], [3, 4])
