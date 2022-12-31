@@ -106,3 +106,76 @@ def BestFn2(a, b, c):
 BestFn2(**d) # ⚡️把字典解包为关键字参数再传入函数内
 
 
+
+
+# 🔥全局变量直接修改值是会被覆盖，需要使用 global 关键字
+x = 880
+def ChangeFn():
+	global x # 修改全局变量（不提倡）
+	x = 999
+	print(x)
+
+ChangeFn()
+
+
+
+
+# 🔥函数的嵌套
+# 🍔🍔🍔嵌套函数的外层作用域具有记忆的特效！！！
+def FunA():
+	x = 996
+	def FunB():
+		x = 888 # ⚡️⚡️无法修改 FunA() 中的 x！！跟 js 不一样
+		print(x ,'in fun B')
+	FunB() # 调用嵌套函数
+	print(x)
+
+FunA()
+
+
+
+# 🔥在嵌套函数中如何修改外部函数的变量！！⚡️⚡️使用 nonlocal 关键字!!
+def FunA():
+	x = 996
+	def FunB():
+		nonlocal x # 🔥🔥🔥修改外部函数的变量!!
+		x = 888 
+		print(x ,'in fun B')
+	FunB() # 调用嵌套函数
+	print(x)
+
+FunA()
+
+
+
+
+# 🔥🔥🔥利用闭包实现工厂函数（根据变量的传入改变函数的作用）
+def Calculator(x):
+	def CalOf(y):
+		return y ** x # ⚡️表示 x 的 y 次方
+	return CalOf # 最终返回的是嵌套函数的值！
+
+square = Calculator(2) # 变成 2 次方的函数 (因为闭包逻辑，🔥 Calculator 的函数进行了闭包， x 记住了 x = 2)
+cube = Calculator(3) # 变成 3 次方的函数（因为闭包逻辑，🔥 Calculator 的函数进行了闭包，x 记住了 x = 3）
+
+print(square(2)) # 4 (2 的 2 次方), 🔥 因为传入的值是给到 CalOf 的 y！！
+print(cube(5)) # 125 (5 的 3 次方), 🔥 因为传入的值是给到 CalOf 的 y！！
+
+
+
+
+# 🔥🔥🔥利用内层函数能够记住外层函数的特效，保存外层函数的值！！
+def Outer():
+	x = 0
+	y = 0
+	def Inner(x1, y1):
+		nonlocal x, y # nonlocal 用来修改外层函数的变量
+		x += x1
+		y += y1
+		print(F'现在, x = {x}, y = {y}')
+	return Inner
+
+
+move = Outer()
+print(move(1, 2))
+print(move(-2, 2))
