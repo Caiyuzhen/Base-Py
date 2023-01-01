@@ -158,8 +158,8 @@ def Calculator(x):
 square = Calculator(2) # 变成 2 次方的函数 (因为闭包逻辑，🔥 Calculator 的函数进行了闭包， x 记住了 x = 2)
 cube = Calculator(3) # 变成 3 次方的函数（因为闭包逻辑，🔥 Calculator 的函数进行了闭包，x 记住了 x = 3）
 
-print(square(2)) # 4 (2 的 2 次方), 🔥 因为传入的值是给到 CalOf 的 y！！
-print(cube(5)) # 125 (5 的 3 次方), 🔥 因为传入的值是给到 CalOf 的 y！！
+print(square(2)) # 4 (2 的 2 次方), 🔥 因为 return CalOf , 所以最终执行的是 CalOf 函数函数！！ 传入的值是给到 CalOf 的 y！！
+print(cube(5)) # 125 (5 的 3 次方), 🔥 因为传入的值是给到 , 所以最终执行的是 CalOf 函数函数！！ CalOf 的 y！！
 
 
 
@@ -179,3 +179,128 @@ def Outer():
 move = Outer()
 print(move(1, 2))
 print(move(-2, 2))
+
+
+
+
+
+# 🔥装饰器(不用修改原来的代码的前提下，给函数添加新的功能)
+# 👇一般的函数（函数作为参数）
+def IsFuncA():
+	print('正在执行 A 函数...')
+
+def Report(func):
+	print('开始调用 A 函数...')
+	func()
+	print('A 函数调用结束')
+
+Report(IsFuncA)
+
+
+
+
+
+# 👇一般的函数（函数作为参数）, 用于计算函数的运行时间
+import time 
+def Time_Master(func):
+	print('开始运行...')
+	start = time.time()
+	func() #运行函数
+	stop = time.time()
+	print('结束运行...')
+	print(F'一共耗费了 {(stop - start):.2f}秒 ')  #保留两位小数点 -> .2f 用于将 stop - start 的值转换为带有两位小数的字符串
+
+
+def Slow():
+	time.sleep(2) #沉睡两秒后再运行
+	print('Hey~')
+
+Time_Master(Slow)
+
+
+
+
+
+
+# 👇用装饰器(本质上是利用闭包的原理）, 实现上面的功能, 用于计算函数的运行时间
+import time
+def Time_Master_02(func):
+	def call_func():
+		print('🎉开始运行...')
+		start = time.time()
+		func() #运行函数
+		stop = time.time()
+		print('🎉结束运行...')
+		print(F'🎉一共耗费了 {(stop - start):.2f}秒 ')
+	return call_func
+
+@Time_Master_02 # 👈👈👈装饰器的使用, ⚡️⚡️本质上就是去调用 call_func() 这个内部函数函数！
+
+def Slow_02():
+	time.sleep(2) #沉睡两秒后再运行
+	print('😄Hey~')
+
+Slow_02() # 👈👈👈装饰器的使用
+
+
+
+# 🔥装饰器的调用顺序
+def Add(func): # 最后执行
+	def inner():
+		x = func()
+		return x +1
+	return inner
+
+def Cube(func): # 第二个执行
+	def inner():
+		x = func()
+		return x ** 3
+	return inner
+
+def Square(func): # 第一个执行
+	def inner():
+		x = func()
+		return x ** 2
+	return inner
+
+@Add
+@Cube
+@Square
+def Result():  #⚡️⚡️相当于把 Result 丢到了 Square、Cube、Add 函数函数里面 的 inner 去作为参数(因为返回的是 inner)！！
+	return 2
+
+print(Result()) # 65   ->   (2 ** 2 + 1) ** 3
+
+
+
+
+
+
+# 🔥如何给装饰器传递参数？
+import time
+def Longger(msg):
+	def Time_Master(func):
+		def Call_Func():
+			start = time.time()
+			func()
+			stop = time.time()
+			print(F"[{msg}] 一共耗费了 {(stop - start):.2f}")
+		return Call_Func
+	return Time_Master
+
+@Longger(msg = '👍')
+def FunA(): #⚡️⚡️相当于把 FunA 丢到了 Time_Master 函数函数里面去作为参数！！因为返回的是 return Time_Master
+	time.sleep(1)
+	print('正在调用 A 函数...')
+
+
+@Longger(msg = '👎')
+def FunB(): #⚡️⚡️相当于把 FunB 丢到了 Time_Master 函数函数里面去作为参数！！因为返回的是 return Time_Master
+	time.sleep(1)
+	print('正在调用 B 函数...')
+
+FunA()
+FunB()
+
+
+
