@@ -169,7 +169,7 @@ def Outer():
 	x = 0
 	y = 0
 	def Inner(x1, y1):
-		nonlocal x, y # nonlocal 用来修改外层函数的变量
+		nonlocal x, y # ⚡️⚡️⚡️nonlocal 用来修改外层函数的变量(⚡️⚡️否则无法修改！)
 		x += x1
 		y += y1
 		print(F'现在, x = {x}, y = {y}')
