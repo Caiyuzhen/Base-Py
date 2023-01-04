@@ -155,9 +155,47 @@ class Counter2:
 		return self.func(*args, **kwargs) #⚡️⚡️调用函数 func, 传入元祖并解包, 最终返回结果
 
 
-@Counter2 #🔥🔥👉相当于 sayCount = Counter2(sayCount) , 相当于让 sayCount 变成了 Counter2 的实例化对象！🔥🔥🔥 所以 sayCount() 相当于 Counter2()!!!
+@Counter2 #🔥🔥👉相当于实例化了一下 Count2!!!! ->  sayCount = Counter2(sayCount) , 相当于让 sayCount 变成了 Counter2 的实例化对象！🔥🔥🔥 所以 sayCount() 相当于 Counter2()!!!
 def sayCount():
 	print('hello world~')
 
 sayCount() # 🌟🌟👆返回的 sayCount() 已经 ⚡️⚡️被掉包成了 【Counter2 的实例化对象】 所以可以直接调用！
 sayCount() #🔥🔥👆相当于把 Counter2 当作函数来调用，所以会触发 __call__ 方法!
+
+
+
+
+
+
+#🤔🤔🤔为了避免类装饰器带来的实例化属性被覆盖的问题, 可以多嵌套一层！！
+def report2(cls):
+	class Check:
+		def __init__(self, *args, **kwargs):
+			self.obj = cls(*args, **kwargs)
+
+		def __getattr__(self, name):
+			# print(f'你正在访问: {name}')
+			return getattr(self.obj, name)
+
+	return Check
+
+
+@report2
+class Abc:
+	def __init__(self, name):
+		self.name = name
+
+	def say_hi(self):
+		print(f'Hi, {self.name}')
+
+	def say_bye(self):
+		print(f'Bye, {self.name}')
+
+	
+abc1 = Abc('饭团') #🔥🔥相当于在实例化 Check 类, 传入参数 name！！实例化第一次
+abc1.say_hi()
+abc1.say_bye()
+
+abc2 = Abc('嘟嘟') #🔥🔥相当于在实例化 Check 类, 传入参数 name！！实例化第二次
+abc2.say_hi()
+abc2.say_bye()
