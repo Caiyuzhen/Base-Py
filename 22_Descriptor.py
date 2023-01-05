@@ -171,31 +171,35 @@ sayCount() #🔥🔥👆相当于把 Counter2 当作函数来调用，所以会�
 def report2(cls):
 	class Check:
 		def __init__(self, *args, **kwargs):
-			self.obj = cls(*args, **kwargs)
+			self.obj = cls(*args, **kwargs) #⚡️⚡️Check 会把实例化过的对象保存在 obj 属性中
 
 		def __getattr__(self, name):
-			# print(f'你正在访问: {name}')
+			# print(f'调用了 {name} 方法')
+			print('🔥第二步')
 			return getattr(self.obj, name)
 
-	return Check
+	return Check #用一个函数返回 class, 实际上调用的还是 Check 类！
 
 
-@report2
+
+@report2 #相当于 report2(Abc) -> Check
 class Abc:
 	def __init__(self, name):
 		self.name = name
+		print('🔥第一步')
 
 	def say_hi(self):
 		print(f'Hi, {self.name}')
+		print('🔥第三步')
 
 	def say_bye(self):
 		print(f'Bye, {self.name}')
 
 	
-abc1 = Abc('饭团') #🔥🔥相当于在实例化 Check 类, 传入参数 name！！实例化第一次
+abc1 = Abc('饭团') #🔥🔥相当于【在实例化 Check 类】, 传入参数 name！！实例化第一次
 abc1.say_hi()
 abc1.say_bye()
 
-abc2 = Abc('嘟嘟') #🔥🔥相当于在实例化 Check 类, 传入参数 name！！实例化第二次
-abc2.say_hi()
-abc2.say_bye()
+# abc2 = Abc('嘟嘟') #🔥🔥相当于【在实例化 Check 类】, 传入参数 name！！实例化第二次
+# abc2.say_hi()
+# abc2.say_bye()
