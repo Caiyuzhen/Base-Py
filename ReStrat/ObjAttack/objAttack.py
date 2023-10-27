@@ -1,11 +1,11 @@
 """
     对象跟对象之间的关系
         1.交互关系（比如攻击）
-          2.依赖关系(附属)
+		2.依赖关系(附属)
         3.关联关系（比如亲友、员工与老板 => 纽带、契约）
-        4.组合关系（比如器官、大脑、心脏, 比聚合还要紧密, 一个坏就全部坏）
+        4.组合关系（比如器官、大脑、心脏, 比聚合还要紧密, 一个坏就全部坏, 组件本身不能独立运行, 需要组合在身体(宿主）上）
         5.聚合关系（比如电脑跟零部件, 一个坏没事可以安装到另一处身上）
-          6.继承关系（比如父子）
+		6.继承关系（比如父子）
 """
 
 
@@ -82,6 +82,7 @@ cuteAnimals =  Animals("嘟嘟", 2, superMan)
 
 
 
+
 print("——————————————————————")
 
 
@@ -131,3 +132,63 @@ p2 = Person3("Annie", 29)
 relationship = RelationShip()
 relationship.make_couple(p1, p2)
 print(f"p1 的 partner 是: {p1.partner}, p2 的 partner 是: {p2.partner}")
+
+
+
+
+print("——————————————————————")
+
+
+
+
+"""组合关系(人和武器是一个组合):"""
+class Monster2:
+    role = "monster"
+    
+    def __init__(self, name: str, attackLev: int):  # 姓名, 种类, 攻击力
+        self.name = name
+        self.attackLev = attackLev # 🔥 攻击力
+        self.lifeValue = 100 #生命值固定
+
+    def bite(self, person):
+        person.lifeValue -= self.attackLev  # 🔥扣除攻击人后, 人的生命值
+        print(f"攻击了 {person.name}, {person.name} 扣除 {self.attackLev} 点生命值, 生命值剩余: {person.lifeValue}")
+    
+    
+        
+class Weapon: # ✋🏻 定义各种武器, 不用实例化（不能独立运行）
+	def gun(self, aim: object):  # 👈 aim 为目标攻击对象
+		self.attackLev = 40  # 🔥 攻击力 40
+		aim.lifeValue -= self.attackLev  # 🔥扣除被攻击对象 40 的血量
+		self.print_log(aim)
+  
+	def knife(self, aim: object):  # 👈 aim 为目标攻击对象
+			self.attackLev = 20  # 🔥 攻击力 40
+			aim.lifeValue -= self.attackLev  # 🔥扣除被攻击对象 40 的血量
+			self.print_log(aim)
+
+	def print_log(self, aim):
+		print(f"{aim.name} 被攻击了, 血量扣除{self.attackLev}, {aim.name} 的血量剩余 {aim.lifeValue} ")
+        
+     
+        
+class Person2:
+    role = "humen"
+    
+    def __init__(self, name: str):
+        self.name = name
+        self.weapon = Weapon() # 🔥🔥【装载武器!】直接实例化 Weapon, 依附于 person 来实例化！
+        self.lifeValue = 200  # 生命值固定
+        
+    def attack(self, monster):
+        monster.lifeValue -= self.attackLev
+        print(f"攻击了 {monster.name}, {monster.name} 扣除 {self.attackLev} 点生命值, 生命值剩余: {monster.lifeValue}")
+        
+
+
+sueprMonster = Monster2("小怪", 5)
+superPerson = Person2("Kim")
+
+sueprMonster.bite(superPerson) # 怪物咬了人一口
+superPerson.weapon.gun(sueprMonster) # 人使用武器攻击怪物
+  
