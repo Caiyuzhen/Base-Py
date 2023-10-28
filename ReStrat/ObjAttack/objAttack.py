@@ -6,7 +6,15 @@
         4.组合关系（比如器官、大脑、心脏, 比聚合还要紧密, 一个坏就全部坏, 组件本身不能独立运行, 需要组合在身体(宿主）上）
         5.聚合关系（比如电脑跟零部件, 一个坏没事可以安装到另一处身上）
 		6.继承关系（比如父子）
+  
+
+	面向对象的三大特征
+		继承、封装、多态
 """
+
+
+
+print("交互关系 ——————————————————————")
 
 
 
@@ -48,8 +56,7 @@ person1.attack(monster1)
 
 
 
-print("——————————————————————")
-
+print("依赖关系 ——————————————————————")
 
 
 
@@ -83,7 +90,7 @@ cuteAnimals =  Animals("嘟嘟", 2, superMan)
 
 
 
-print("——————————————————————")
+print("关联关系 ——————————————————————")
 
 
 
@@ -136,7 +143,7 @@ print(f"p1 的 partner 是: {p1.partner}, p2 的 partner 是: {p2.partner}")
 
 
 
-print("——————————————————————")
+print("组合关系 ——————————————————————")
 
 
 
@@ -191,4 +198,145 @@ superPerson = Person2("Kim")
 
 sueprMonster.bite(superPerson) # 怪物咬了人一口
 superPerson.weapon.gun(sueprMonster) # 人使用武器攻击怪物
+
+
+
+
+
+print("继承 ————————————————————————————————————————————————————————————————————————————————————————")
+print("重写父类(单继承) ——————————————————————")
+
+
+
+"""重写父类(在父类基础上进行补充):"""
+class Father:
+	a_type = "父类"
+	
+	def __init__(self, name: str, money: int = 100): # 初始家产为 100, 让子类继承
+		self.name = name
+		self.money = money
+		
+	def run1(self, speed):
+		print(f"跑步速度: {speed}")
   
+  
+  
+class Child(Father):
+    a_type = "子类"
+    
+    def __init__(self, name: str, money: int = None, hobbit = None): # 【🔥子类没有构造函数的话, 会调用父类的构造函数, 有的话则会执行子类的构造函数！】 hobbit 为子类单独定义的属性, hobbit 为可选参数, 默认为 None
+        super().__init__(money) # 使用 super() 调用父类的 __init__ 的初始化函数,  money 则继承父类的初始值（__init__)
+        # 让子类的 money 继承自父类
+        # Father.__init__(self, name, money)
+        self.name = name # 名字来自子类
+        self.hobbit = hobbit # 兴趣也是子类的
+    
+    def run(self, speed):
+        super().run1(speed) # 【🔥执行父类的跑步方法也是 super().XXX !】, 父类会打印 speed 的, 具体的 speed 则由子类传入
+        
+
+
+p3 = Father("SuperAnnie", 9999)
+p31 = Child("Annie") # 子类的 money 继承自父类的初始化家产
+p31.run(20)
+print(p31.money)
+
+
+
+print("重写父类(多继承) ——————————————————————")
+
+class AnimalsBase:
+	def __init__(self, id = 3):
+		self.id = id
+	
+	def run(self, speed = 200):
+		print(f"动物祖先的跑步速度: {speed}")
+  
+	def fly(self, speed = 1200):
+		print(f"动物祖先的飞行速度: {speed}")
+  
+  
+class PersonBase:
+	def __init__(self, name = "始祖"):
+		self.name = name
+		
+	def fly(self, speed = 900):
+		print(f"人类始祖的飞行速度: {speed}")
+  
+
+
+
+class Animals2(AnimalsBase):
+	def __init__(self, id = 7):
+		self.id = id
+	
+	def run(self, speed = 100):
+		print(f"跑步速度: {speed}")
+  
+		
+	
+class Persons4(PersonBase):
+	def __init__(self, name = "小明"):
+		self.name = name
+  
+	def run(self, speed = 30):
+		print(f"跑步速度: {speed}")
+		
+	def drive(self, speed):
+		print(f"驾驶速度: {speed}")
+  
+	def fly(self, speed = 299):
+		print(f"普通人类的飞行速度: {speed}")
+
+
+
+class Students(Animals2, Persons4): # 多继承, 如果有相同的属性或方法则优先继承第一个父类
+    def __init__(self, name = None, id = None):
+        Animals2.__init__(self, id)
+        Persons4.__init__(self, name)
+        
+    def study(self, subject):
+        print(f"学习了 {subject}")
+        
+
+superStudent = Students("007")
+print(superStudent.id)
+superStudent.run() # 🚀 调用继承自父类的方法（优先调用左侧 Animals2 的 run 方法）
+superStudent.fly()  # 🔥 深度优先而非广度优先, 优先调用左侧 Animals2 , 没有的话就再向上找 AnimalsBase 的 fly 方法! 【🔥有个坑, 如果两个始祖类又继承自同一个类, 那么就会变成广度优先!! -> C3 算法】
+print(Students.mro())#打印继承顺序
+
+
+
+
+
+print("封装 ————————————————————————————————————————————————————————————————————————————————————————")
+"""
+	封装可以防止外部随意修改类身上的数据, 保证数据的安全性
+	仅在实例的内部可以访问这些数据
+	或者在外部通过接口进行访问
+ """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
