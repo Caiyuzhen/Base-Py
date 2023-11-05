@@ -11,7 +11,7 @@ import multiprocessing # 🔥 【进程】模块, 一个进程只能用一个端
 
 
 
-# 🌟WSGI 服务器类
+# 🌟 服务器类
 class WSGIServer():
 	""" 初始化服务器 """
 	def __init__(self, port, documents_root):

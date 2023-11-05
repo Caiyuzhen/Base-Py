@@ -11,7 +11,7 @@ import threading # 🌛 【线程】模块,  【线程（Thread）和进程（Pr
 
 
 
-# 🌟WSGI 服务器类
+# 🌟 服务器类
 class WSGIServer():
 	""" 初始化服务器 """
 	def __init__(self, port, documents_root):

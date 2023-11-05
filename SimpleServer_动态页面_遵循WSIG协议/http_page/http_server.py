@@ -12,7 +12,7 @@ from mini_web import application, login, register, detail, wrong_404 # 导入 lo
 
 
 
-# 🌟WSGI 服务器类
+# 🌟WSGI 协议服务器类
 class WSGIServer():
 	""" 初始化服务器 """
 	def __init__(self, port, documents_root):
@@ -122,8 +122,11 @@ class WSGIServer():
 				# 👇如果是 .py 结尾的请求, 就生成动态页面 ************************************************************************
 				else:
 					# 👇更健壮, 避免只能返回 200 OK, 而是能在 web 框架中设置 header 响应头
+					env = dict() # 🔥🔥定义字典, 用来封装数据传递给 application => Reference WSGI 协议约定的能传入的字典参数 : https://doc.itprojects.cn/0001.zhishi/python.0023.miniweb/index.html#/01
+					env['PATH_INFO'] = file_name # 🔥🔥 传入请求的文件名
+     
 					# response_body = application(file_name)
-					response_body = application(self.set_status_headers) # 👈👈 不写括号, 不是调用函数, 而是把函数传入 application 内, 在 application 内去调用并传入 header 的状态码等 header 响应 !!! response_body 就是 application 的 return !!!
+					response_body = application(env, self.set_status_headers) # env 为请求的文件名、self.set_status_headers 为传入状态码跟返回 headerv 的函数 👈👈 不写括号, 不是调用函数, 而是把函数【传入 application（外部处理 web 页面的函数） 内】, 在 application 内去调用并传入 header 的状态码等 header 响应 !!! 🔥🔥 response_body 就是 application 的 return !!! 因此 header 不能写在 body 前面, 否则拿不到 header 的值
 					response_header = "HTTP/1.1 %s\r\n" % {self.status}  # 👈👈 合并 header 的状态码跟响应	
 					for headerContent in self.headers:
 						response_header += "%s: %s\r\n" % (headerContent[0], headerContent[1]) # 👈👈 合并 header 的响应头
