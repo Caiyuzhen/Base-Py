@@ -101,5 +101,5 @@ def main():
 					f.close()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # 当这个脚本被直接运行时（而不是被其他脚本导入），调用 main() 函数，执行主要功能
 	main()
