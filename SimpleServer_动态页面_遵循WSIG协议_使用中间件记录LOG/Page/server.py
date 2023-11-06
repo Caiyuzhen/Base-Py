@@ -59,14 +59,20 @@ class WSGIServer():
 			# print(request)
 			req_lines = request.splitlines() # 🚀 把请求数据按行分割成列表
    
-   
    			# 👇用来传输给中间件的数据 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 			userReq_data = {
 				'REMOTE_ADDR': self.new_socket.getpeername()[0],
-				'REQUEST_METHOD': 'GET',  # 你需要根据实际请求设置这些值
+				'REQUEST_METHOD': req_lines[0].split(" ")[0],  # 提取出请求的方法
 				'REQUEST_URI': req_lines[0],
 				# 'HTTP_USER_AGENT': user_agent  # 用户信息
 			}
+   
+			# 提取 User-Agent 头信息 => 用来传递给中间件的数据 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			for line in req_lines:
+				if line.startswith("User-Agent:"):
+					userReq_data['HTTP_USER_AGENT'] = line.split(":", 1)[1].strip()
+					break
+ 
 			log_middlewareFn(userReq_data) # 将中间件添加到应用程序 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
    
    

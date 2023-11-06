@@ -1,0 +1,35 @@
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /detail.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /detail.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /register.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /favicon.ico HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /login.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /login.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /login.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /login.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /login.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /register.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /index.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /index.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /register.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /index.html HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /index.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /index.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /index.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: -): GET GET /index.py HTTP/1.1
+
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /register.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /register HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /login.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /login HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /register HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /register.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /register HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /login.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /login HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /login.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /login HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /login HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /login HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /login.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /login.py HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /register.py HTTP/1.1

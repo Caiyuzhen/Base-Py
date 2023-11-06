@@ -12,7 +12,7 @@ logging.basicConfig(filename=log_file_path, level=logging.DEBUG)
 
 def log_middlewareFn(env, start_response = None): # env 为传入的请求信息，start_response 为传出的响应信息
     # 打印
-    print("记录用户数据")
+    print(f"记录用户数据:", {log_file_path})
     
 	# 获取用户的 IP 地址
     remote_addr = env.get('REMOTE_ADDR', '-')
