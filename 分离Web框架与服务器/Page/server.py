@@ -6,9 +6,25 @@ import time
 from mini_web import application, login, register, detail, wrong_404 # 导入 login.py, register.py 里的函数
 from middlewares.log_middleware import log_middlewareFn
 import multiprocessing # 🔥 【进程】模块, 一个进程只能用一个端口!! 【线程（Thread）和进程（Process）】, 一个进程中可以同时存在多个线程, 各个线程之间可以并发执行, 各个线程之间可以共享地址空间和文件等资源, 当进程中的一个线程奔溃时，会导致其所属进程的所有线程奔溃
+import sys # 用来在命令行中【传递参数】
+import re # 用来【正则匹配】
 
 # 🌟WSGI 协议服务器类
 class WSGIServer():
+	# 1. 判断运行时参数的个数是否符合要求 => python3 server.py mini_web:application
+	if len(sys.argv) == 2: # sys.argv 为库里边的方法, 【🔥 取出命令行内传入的参数】
+		pass
+	else:
+		exit("运行时参数有误, 请按照 | python3 server.py mini_web:application | 这种格式来运行") # 参数数量不符合要求, 则退出
+
+	# 2. 提取 Web 框架的名称以及【入口函数】
+	framework_app_name = sys.argv[1] # "mini_web:application"
+	re.match(r"[^:]+", framework_app_name) # 🔥 [^:] 表示非冒号
+ 
+	# 3. 根据 web 框架名字导入 .py 文件
+	
+ 
+ 
 	""" 初始化服务器 """
 	def __init__(self, port, documents_root):
      
