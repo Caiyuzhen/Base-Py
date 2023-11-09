@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+#bannerCarousel {
+	cursor: pointer; /* Indicates that the banner is clickable */
+}
+  
+.slide {
+	display: none; /* Hide all slides by default */
+	/* Ensure slides have the same size and other styles as needed */
+}
+
+.slide1 {
+	background-color: #FFA07A; /* Light Salmon */
+}
+
+.slide2 {
+	background-color: #7FFFD4; /* Aquamarine */
+}
+
+.slide3 {
+	background-color: #E6E6FA; /* Lavender */
+}
+
+
+.banner {
+  width: 100%;
+  background-color: #ddd;
+  padding: 20px;
+  text-align: center;
+}
+
+.video-gallery {
+  padding: 20px;
+}
+
+.videos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.video {
+  width: 30%;
+  min-width: 250px;
+}
+
+video {
+  width: 100%;
+  height: auto;
+}
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

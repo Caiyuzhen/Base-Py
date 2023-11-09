@@ -3,32 +3,24 @@ import socket
 import sys
 import os
 import time
-from mini_web import application, login, register, detail, wrong_404 # 导入 login.py, register.py 里的函数
 from middlewares.log_middleware import log_middlewareFn
 import multiprocessing # 🔥 【进程】模块, 一个进程只能用一个端口!! 【线程（Thread）和进程（Process）】, 一个进程中可以同时存在多个线程, 各个线程之间可以并发执行, 各个线程之间可以共享地址空间和文件等资源, 当进程中的一个线程奔溃时，会导致其所属进程的所有线程奔溃
 import sys # 用来在命令行中【传递参数】
 import re # 用来【正则匹配】
+from views.mini_web import application, login, register, detail, wrong_404 # 导入 login.py, register.py 里的函数
+
+
+# 定义全局变量, 用来存储 web 框架的路径
+# VIEWS_PATH = "./Page/views"
+VIEWS_PATH = os.path.join(os.path.dirname(__file__), 'views')
+
 
 # 🌟WSGI 协议服务器类
 class WSGIServer():
-	# 1. 判断运行时参数的个数是否符合要求 => python3 server.py mini_web:application
-	if len(sys.argv) == 2: # sys.argv 为库里边的方法, 【🔥 取出命令行内传入的参数】
-		pass
-	else:
-		exit("运行时参数有误, 请按照 | python3 server.py mini_web:application | 这种格式来运行") # 参数数量不符合要求, 则退出
-
-	# 2. 提取 Web 框架的名称以及【入口函数】
-	framework_app_name = sys.argv[1] # "mini_web:application"
-	re.match(r"[^:]+", framework_app_name) # 🔥 [^:] 表示非冒号
- 
-	# 3. 根据 web 框架名字导入 .py 文件
-	
- 
- 
 	""" 初始化服务器 """
-	def __init__(self, port, documents_root):
+	def __init__(self, port, documents_root, application):
      
-		global application
+		self.application = application
 
 		self.documents_root = documents_root #  🔥 服务器根路径
 		self.port = port # 🔥 存放端口号
@@ -158,7 +150,7 @@ class WSGIServer():
 					env = dict() # 🔥🔥定义字典, 用来封装数据传递给 application => Reference WSGI 协议约定的能传入的字典参数 : https://doc.itprojects.cn/0001.zhishi/python.0023.miniweb/index.html#/01
 					env['PATH_INFO'] = file_name # 🔥🔥 传入请求的文件名
      
-					response_body = application(env, self.set_status_headers) # env 为请求的文件名、self.set_status_headers 为传入状态码跟返回 headerv 的函数 👈👈 不写括号, 不是调用函数, 而是把函数【传入 application（外部处理 web 页面的函数） 内】, 在 application 内去调用并传入 header 的状态码等 header 响应 !!! 🔥🔥 response_body 就是 application 的 return !!! 因此 header 不能写在 body 前面, 否则拿不到 header 的值
+					response_body = self.application(env, self.set_status_headers) # env 为请求的文件名、self.set_status_headers 为传入状态码跟返回 headerv 的函数 👈👈 不写括号, 不是调用函数, 而是把函数【传入 application（外部处理 web 页面的函数） 内】, 在 application 内去调用并传入 header 的状态码等 header 响应 !!! 🔥🔥 response_body 就是 application 的 return !!! 因此 header 不能写在 body 前面, 否则拿不到 header 的值
 					response_header = "HTTP/1.1 %s\r\n" % self.status  # 👈👈 合并 header 的状态码跟响应	
 					for headerContent in self.headers:
 						response_header += "%s: %s\r\n" % (headerContent[0], headerContent[1]) # 👈👈 合并 header 的响应头
@@ -169,8 +161,38 @@ class WSGIServer():
      
 
 def main():
-	http_server = WSGIServer(8080, './html') # 🔥传入端口 + 文件夹的根路径
-	http_server.run_forever() # 🔥 一直运行程序
+    # 👇 改造成 【运行服务器】 + 【调用框架:主入口函数】 =>  python3 server.py mini_web:application
+	# 1. 判断运行时参数的个数是否符合要求 => python3 server.py mini_web:application
+	if len(sys.argv) == 2: # sys.argv 为库里边的方法, 【🔥 取出命令行内传入的参数】
+		pass
+	else:
+		exit("运行时参数有误, 请按照 | python3 server.py mini_web:application | 这种格式来运行") # 参数数量不符合要求, 则退出
+
+	# 2. 提取 Web 框架的名称以及【入口函数】
+	framework_app_name = sys.argv[1] # "mini_web:application"
+	ret = re.match(r"([^:]+):(.+)", framework_app_name) # 🔥 [^:] 表示非冒号, ret 就是正则返回匹配的文字
+	if ret:
+		framework_name = ret.group(1) # "mini_web"
+		app_name = ret.group(2) # application
+	else:
+		exit("输入的框架名称或入口函数名称不符合要求")
+  
+	# 🚀 修改 sys.path, 让 sys 知道从哪里开始查找框架名称
+	sys.path.insert(0, VIEWS_PATH)
+  
+	# 3. 根据 web 框架名字导入 .py 文件
+	framework = __import__(framework_name) # __import__ 表示导入框架, framework_app_name 可以指向用户命令行内输入的【框架名称】
+ 
+	
+	# 4. 在导入的模块（web 框架）中获取（函数）
+	# 如果找得到 framework 
+	if framework:
+		app = getattr(framework, app_name) # 👈 app_name 就是用户在命令行内输入的框架名
+ 
+		http_server = WSGIServer(8080, './html', app) # 🔥传入端口 + 文件夹的根路径
+		http_server.run_forever() # 🔥 一直运行程序
+	else:
+		exit("找不到所输入的框架, 请重新输入")
 
 
 if __name__ == "__main__": # 当这个脚本被直接运行时（而不是被其他脚本导入），调用 main() 函数，执行主要功能
