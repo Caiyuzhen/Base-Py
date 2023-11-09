@@ -8,11 +8,13 @@ import multiprocessing # 🔥 【进程】模块, 一个进程只能用一个端
 import sys # 用来在命令行中【传递参数】
 import re # 用来【正则匹配】
 from views.mini_web import application, login, register, detail, wrong_404 # 导入 login.py, register.py 里的函数
+import importlib
 
 
-# 定义全局变量, 用来存储 web 框架的路径
+
 # VIEWS_PATH = "./Page/views"
-VIEWS_PATH = os.path.join(os.path.dirname(__file__), 'views')
+VIEWS_PATH = os.path.join(os.path.dirname(__file__), 'views') # 定义全局变量, 用来存储 web 框架的路径
+STATIC_PATH = os.path.join(os.path.dirname(__file__), './html')# 定义全局变量, 用来存储返回给浏览器的静态资源的路径
 
 
 # 🌟WSGI 协议服务器类
@@ -111,10 +113,12 @@ class WSGIServer():
 					f = None  # 初始化 f 变量, 用于判断文件是否存在
 
 					try: # 尝试打开文件
-						file_path = self.documents_root + file_name
+        				# file_path = self.documents_root + file_name
+						file_path = STATIC_PATH + file_name 
+						print('请求路径:', file_path)
 						if os.path.exists(file_path):
-							f = open(file_path, "rb") # 🔥 rb 用来打开【二进制】文件
-							content = f.read() # 🔥 存储读取出来的文件数据
+							with open(file_path, "rb") as f:# 🔥 rb 用来打开【二进制】文件
+								content = f.read() # 🔥 存储读取出来的文件数据
 							# ... 其余文件处理代码
 						else:
 							raise Exception("❌ 文件不存在～")
@@ -129,7 +133,7 @@ class WSGIServer():
 					finally: # 如果没异常, 把拿到的文件返回给浏览器
 						if not has_error: # 只有在没有异常的情况下才发送正常的响应
 							# 8. 把数据返回给浏览器 (🔥 如果需要发送响应头跟二进制数据, 则需要分开发送!! 因为字符串跟二进制的数据无法同时发送!!) ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-							response_header = "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n"  # \r\n 表示回车换行, 为了兼容 linux, macosx, windows
+							response_header = "HTTP/1.1 200 OK\r\nContent-Type: text/html;"  # \r\n 表示回车换行, 为了兼容 linux, macosx, windows
 							response_header += "\r\n" # 表示一个空行, 作为换行符
 							response_body = content
 
