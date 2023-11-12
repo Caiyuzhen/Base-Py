@@ -29,7 +29,7 @@ print(Filtered)
 def Counter():
 	i = 0
 	while i <= 5:
-		yield i # ⚡️⚡️⚡️创建生成器方法一, 每次被调用都会提供一个数据!!跟列表还有元组不一样，⚡️它们是早已准备好的数据！
+		yield i # ⚡️⚡️⚡️创建生成器方法一, 每次被调用都会提供一个数据!!跟列表还有元组不一样，⚡️它们是早已准备好的数据！ 每次调用 next() 都会返回当前的 i 值
 		i += 1 # 下次调用就从这里开始!!
 
 for i in Counter():
@@ -37,8 +37,8 @@ for i in Counter():
 
 
 Res = Counter() # 生成器, 相当于一个特殊的迭代器, !!⚡️无法使用下标索引
-print(next(Res)) #0
-print(next(Res)) #1
+print(next(Res)) #0  => 每次调用 next() 都会返回当前的 i 值
+print(next(Res)) #1 => 每次调用 next() 都会返回当前的 i 值
 print(next(Res)) #2
 print(next(Res)) #3
 

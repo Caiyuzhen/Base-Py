@@ -1,7 +1,8 @@
 import re
 import time
-# from middlewares.log_middleware import log_middlewareFn
 from contextlib import contextmanager # 🔥 上下文管理器装饰器（可以用来补充路径）
+import pymysql # 🔥操作数据库的包 pip3 install pymysql  ｜ 🔥记得安装 pip install cryptography 包用来认证并连接数据库 => 国内可以用清华镜像 pip install cryptography -i https://pypi.tuna.tsinghua.edu.cn/simple
+# from middlewares.log_middleware import log_middlewareFn 
 
 
 
@@ -39,11 +40,44 @@ def index():
 	# 👇不使用上下文管理器
 	# with open("views/templates/index.html", "r") as f: # 从打开路径 => server.js 这个位置开始找 index.html
 		# content = f.read() # 读取文件内容
+  
+	# 1. 获取 html 模板 View
 	with mini_open_static("/index.html", "r") as f: # 👈 使用 mini_open_static 上下文管理器
 		content = f.read() # 读取文件内容
   
-	data_from_database = "模拟从数据库查询出来的数据"
-	content = re.sub(r"\{% content %\}", data_from_database, content) # 🚀🚀 导入正则表达式模块, 用来替换 index.html 内的 content 这个占位符字符串位置的内容
+	# 2. 查询数据库
+	db = pymysql.connect(host='localhost', port=3306, user='root', password='123456', database='stock_db', charset='utf8') # 一: 连接数据库服务器
+	cursor = db.cursor() # 二: 获取游标(用来操作数据库, 执行 sql 语句, 获取结果)
+	cursor.execute("select * from info;") # 三: 执行 sql 语句, 🔥可以进行分页 => select * from info; 相当于查询出 info 表格的所有数据
+	data_from_database = cursor.fetchall() # 四: 获取结果
+	cursor.close() # 五: 关闭游标
+	db.close() # 六: 关闭数据库服务器连接
+	# print("\n\n")
+	# print(data_from_database) # 七: 打印出来的是元组的数据列表
+ 
+	# 八: 把数据填入 html 模板内
+	html_template = """
+			<tr>
+				<td>{0[0]}</td>
+				<td>{0[1]}</td>
+				<td>{0[2]}</td>
+    			<td>{0[3]}%</td>
+				<td>{0[3]}%</td>
+				<td>{0[4]}</td>
+				<td>{0[5]}</td>
+				<td>{0[7]}</td>
+				<td>
+    				<input type="button" value="添加" id="add" name="add" systemId="{0[1]}">
+        		</td>
+        	</tr>
+ 			"""
+	html = "" # 定义个变量, 用来存储查询出来的数据最终要组成的 list html
+	for i_stock in data_from_database:
+		html += html_template.format(i_stock) # 有多少个数据就会产生多撒后行
+     
+	# data_from_database = "模拟从数据库查询出来的数据"
+	# content = re.sub(r"\{% content %\}", html, content) # 🚀🚀 导入正则表达式模块, 用来替换 index.html 内的 content 这个占位符字符串位置的内容
+	content = re.sub(r"\{% content %\}", str(html), content) # 🚀🚀 导入正则表达式模块, 用来替换 index.html 内的 content 这个占位符字符串位置的内容
 	return content
 
 
