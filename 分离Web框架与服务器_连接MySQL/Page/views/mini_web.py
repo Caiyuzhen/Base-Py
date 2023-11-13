@@ -48,14 +48,15 @@ def index():
 	# 2. 查询数据库
 	db = pymysql.connect(host='localhost', port=3306, user='root', password='123456', database='stock_db', charset='utf8') # 一: 连接数据库服务器
 	cursor = db.cursor() # 二: 获取游标(用来操作数据库, 执行 sql 语句, 获取结果)
-	cursor.execute("select * from info;") # 三: 执行 sql 语句, 🔥可以进行分页 => select * from info; 相当于查询出 info 表格的所有数据
+	sql = """select * from info;""" # 三: 执行 sql 语句, 🔥可以进行分页 => select * from info; 相当于查询出 info 表格的所有数据
+	cursor.execute(sql)
 	data_from_database = cursor.fetchall() # 四: 获取结果
 	cursor.close() # 五: 关闭游标
 	db.close() # 六: 关闭数据库服务器连接
 	# print("\n\n")
 	# print(data_from_database) # 七: 打印出来的是元组的数据列表
  
-	# 八: 把数据填入 html 模板内
+	# 八: 定义 html 模板
 	html_template = """
 			<tr>
 				<td>{0[0]}</td>
@@ -67,18 +68,20 @@ def index():
 				<td>{0[5]}</td>
 				<td>{0[7]}</td>
 				<td>
-    				<input type="button" value="添加" id="add" name="add" systemId="{0[1]}">
+    				<input type="button" value="添加" id={0[0]} name="add">
         		</td>
         	</tr>
  			"""
 	html = "" # 定义个变量, 用来存储查询出来的数据最终要组成的 list html
 	for i_stock in data_from_database:
-		html += html_template.format(i_stock) # 有多少个数据就会产生多撒后行
+		html += html_template.format(i_stock) # 有多少个数据就会产生多少行, format 表示格式化, 用来格式化字符串
      
+    # 3.把数据塞入 html 模板内
 	# data_from_database = "模拟从数据库查询出来的数据"
 	# content = re.sub(r"\{% content %\}", html, content) # 🚀🚀 导入正则表达式模块, 用来替换 index.html 内的 content 这个占位符字符串位置的内容
 	content = re.sub(r"\{% content %\}", str(html), content) # 🚀🚀 导入正则表达式模块, 用来替换 index.html 内的 content 这个占位符字符串位置的内容
 	return content
+
 
 
 @route("/login.html")
@@ -91,10 +94,53 @@ def register():
 	response_body = "✏️ 注册页面"
 	return response_body
 
-@route("/detail.html")
+
+
+@route("/focus.html")
 def detail():
-	response_body = "🛍️ 详情页"
-	return response_body
+    # 1. 获取 html 模板 View
+    with mini_open_static("/focus.html", "r") as f:
+        content = f.read()
+        
+	# 2. 查询数据库
+    db = pymysql.connect(host='localhost', port=3306, user='root', password='123456', database='stock_db', charset='utf8') # 一: 连接数据库服务器
+    cursor = db.cursor() # 二: 获取游标(用来操作数据库, 执行 sql 语句, 获取结果)
+    # 三: 执行 sql 语句, 🔥i.id=j.info_id 跟 reference 进行连接         
+    sql = """SELECT i.stock_code, i.short_info, i.chg, i.turnover, i.price, i.highs, f.note_info
+    		 FROM info AS i
+     		 INNER JOIN focus AS f ON i.id = f.info_id;"""
+
+    cursor.execute(sql)
+    data_from_database = cursor.fetchall() # 四: 获取结果
+    print(data_from_database)
+    cursor.close() # 五: 关闭游标
+    db.close() # 六: 关闭数据库服务器连接
+	# 七: 定义 html 模板
+    html_template = """
+			<tr>
+				<td>{0[0]}</td>
+				<td>{0[1]}</td>
+				<td>{0[2]}</td>
+    			<td>{0[3]}%</td>
+				<td>{0[4]}%</td>
+				<td>{0[5]}</td>
+    			<td>{0[6]}</td>
+    			<td>
+    				<a class="btn btn-primary" id={0[0]} name="changeNote" href="/update.html">修改备注</a>
+        		</td>
+				<td>
+					<input type="button" value="删除备注" id={0[0]}  name="delete">
+        		</td>
+        	</tr>
+ 			"""
+    html = "" # 定义个变量, 用来存储查询出来的数据最终要组成的 list html
+    for i_stock in data_from_database:
+        html += html_template.format(i_stock) # 有多少个数据就会产生多撒后行
+    # 3.把数据塞入 html 模板内
+    content = re.sub(r"\{% content %\}", str(html), content) # 🚀🚀 导入正则表达式模块, 用来替换 index.html 内的 content 这个占位符字符串位置的内容
+    return content
+
+
 
 @route("404")
 def wrong_404():
