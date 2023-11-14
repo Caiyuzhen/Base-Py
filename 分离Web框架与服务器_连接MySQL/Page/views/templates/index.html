@@ -3,10 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video Gallery</title>
+<title>Home Page</title>
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+	<nav>
+		<ul>
+		  <li><a href="index.html">主页</a></li>
+		  <li><a href="focus.html">关注页</a></li>
+		</ul>
+	</nav>
+	
 	<div class="banner" id="bannerCarousel">
 		<div class="slide slide1" style="display: block;">
 		  <h1>Banner Slide 1</h1>
@@ -17,39 +24,40 @@
 		<div class="slide slide3">
 		  <h1>Banner Slide 3</h1>
 		</div>
-	  </div>
+	</div>
 
-<div class="video-gallery">
-	<h2>Stock List</h2> 
-	<table>
-        <tr>
-            <th>序号</th>
-            <th>股票代码</th>
-            <th>股票简称</th>
-			<th>涨跌幅</th>
-            <th>换手率</th>
-            <th>最新价(元)</th>
-            <th>前期高点(元)</th>
-            <th>日期</th>
-            <th>操作</th>
-        </tr>
-		{% content %} 
-    </table>
 
-  <h2>Video</h2> 
-  <div class="image-wall">
-	<div class="image"><img src="/img/logo-01.png" alt="Image 1"></div>
-	<div class="image"><img src="/img/logo-02.png" alt="Image 2"></div>
-	<div class="image"><img src="/img/logo-03.png" alt="Image 3"></div>
-	<div class="image"><img src="/img/logo-04.png" alt="Image 4"></div>
-	<div class="image"><img src="/img/logo-05.png" alt="Image 5"></div>
-	<div class="image"><img src="/img/logo-06.png" alt="Image 6"></div>
-  </div>
-</div>
+	<div class="video-gallery">
+		<h2>Stock List</h2> 
+		<table>
+			<tr>
+				<th>序号</th>
+				<th>股票代码</th>
+				<th>股票简称</th>
+				<th>涨跌幅</th>
+				<th>换手率</th>
+				<th>最新价(元)</th>
+				<th>前期高点(元)</th>
+				<th>日期</th>
+				<th>操作</th>
+			</tr>
+			{% content %} 
+		</table>
 
-<div class="footer">
-  <p>Footer links here</p>
-</div>
+	<h2>Video</h2> 
+	<div class="image-wall">
+		<div class="image"><img src="/img/logo-01.png" alt="Image 1"></div>
+		<div class="image"><img src="/img/logo-02.png" alt="Image 2"></div>
+		<div class="image"><img src="/img/logo-03.png" alt="Image 3"></div>
+		<div class="image"><img src="/img/logo-04.png" alt="Image 4"></div>
+		<div class="image"><img src="/img/logo-05.png" alt="Image 5"></div>
+		<div class="image"><img src="/img/logo-06.png" alt="Image 6"></div>
+	</div>
+	</div>
+
+	<div class="footer">
+	<p>Footer links here</p>
+	</div>
 
 <script src="js/main.js"></script>
 </body>

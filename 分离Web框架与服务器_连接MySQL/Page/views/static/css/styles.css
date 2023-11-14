@@ -24,12 +24,35 @@ body {
 	background-color: #E6E6FA; /* Lavender */
 }
 
-
 .banner {
 	width: 100%;
 	background-color: #ddd;
 	padding: 20px;
 	text-align: center;
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+  
+nav ul li {
+	float: left;
+}
+  
+nav ul li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+  
+  nav ul li a:hover {
+	background-color: #111;
 }
 
 table {
@@ -89,3 +112,46 @@ th {
   bottom: 0;
   width: 100%;
 }
+
+
+.custom-table {
+	width: 100%;
+	border-collapse: collapse;
+  }
+  
+  .custom-table th,
+  .custom-table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+  }
+  
+  .custom-table th {
+	background-color: #f2f2f2;
+  }
+  
+  .custom-table td:last-child {
+	width: 150px; /* or any other width that suits your needs */
+  }
+  
+  .custom-table input[type="text"] {
+	width: 100%; /* Makes the input field take up the entire cell width */
+	padding: 5px;
+	margin: 0;
+	box-sizing: border-box; /* Makes sure the padding doesn't affect the total width */
+  }
+  
+  .custom-table button {
+	width: 100%;
+	padding: 5px;
+	margin: 0;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	cursor: pointer;
+  }
+  
+  .custom-table button:hover {
+	background-color: #45a049;
+  }
+  

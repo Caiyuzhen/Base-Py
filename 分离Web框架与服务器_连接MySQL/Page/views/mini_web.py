@@ -16,7 +16,7 @@ TEMPLATES_PATH = "views/templates" # 🚀 用来存储模板文件的路径, 以
 @contextmanager
 def mini_open_static(file_path, model): # 传入上下文管理器的装饰器, 补充 views/templates 这个路径
     f = open(TEMPLATES_PATH + file_path, model)
-    yield f # 🔥🔥 yield 执行到这里回西安暂停一下, 然后下去执行  content = f.read() # 读取文件内容, 然后再回来执行 f.close()
+    yield f # 🔥🔥 yield 执行到这里会去暂停一下, 然后下去执行  content = f.read() # 读取文件内容, 然后再回来执行 f.close()
     f.close()
 
 
@@ -97,7 +97,7 @@ def register():
 
 
 @route("/focus.html")
-def detail():
+def focus():
     # 1. 获取 html 模板 View
     with mini_open_static("/focus.html", "r") as f:
         content = f.read()
@@ -126,10 +126,10 @@ def detail():
 				<td>{0[5]}</td>
     			<td>{0[6]}</td>
     			<td>
-    				<a class="btn btn-primary" id={0[0]} name="changeNote" href="/update.html">修改备注</a>
+    				<a class="btn btn-primary" id={0[0]} name="changeNote" href="/update/{0[0]}.html">修改备注</a>
         		</td>
 				<td>
-					<input type="button" value="删除备注" id={0[0]}  name="delete">
+					<input type="button" value="删除备注" id={0[0]}  name="delete" systemIDvalue="{0[0]}">
         		</td>
         	</tr>
  			"""
@@ -138,6 +138,18 @@ def detail():
         html += html_template.format(i_stock) # 有多少个数据就会产生多撒后行
     # 3.把数据塞入 html 模板内
     content = re.sub(r"\{% content %\}", str(html), content) # 🚀🚀 导入正则表达式模块, 用来替换 index.html 内的 content 这个占位符字符串位置的内容
+    return content
+
+
+
+@route("/update/000037.html") # 详情页
+def updatePage(file_path):
+    # 1. 打开 html 模板
+    with mini_open_static("/update.html", "r") as f:
+        content = f.read()
+    # 2. 查询数据库
+    
+    # 3.返回数据
     return content
 
 
