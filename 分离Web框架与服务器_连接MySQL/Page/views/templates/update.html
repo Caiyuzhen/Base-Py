@@ -12,18 +12,18 @@
   <table>
     <thead>
       <tr>
-        <th>Header 1</th>
-        <th>Header 2</th>
-        <th>Header 3</th>
-        <th>Search</th>
+        <th>股票代码</th>
+        <th>备注信息</th>
+        <th>操作</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>{% code %}</td>
-        <td>{% note_info %}</td>
-        <td><input type="text" name="search"></td>
-        <td><button>搜索</button></td>
+        <td>{% stock_code %}</td>
+        <td>
+			<input type="text" name="input" value="{% note_info %}">
+		</td>
+        <td><button>修改</button></td>
       </tr>
       <!-- Additional rows as needed -->
     </tbody>
