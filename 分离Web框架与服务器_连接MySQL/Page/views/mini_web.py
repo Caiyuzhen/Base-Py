@@ -146,7 +146,7 @@ def focus():
 
 
 @route(r"/update/(\d+)\.html") # 每支股票的详情页, # 因为是 r 正则表达式, 所以 . 需要转译一下
-def updatePage(stock_code):
+def update_stockPage_detail(stock_code):
     
     # 1. 打开 html 模板
     with mini_open_static("/update.html", "r") as f:
@@ -171,6 +171,31 @@ def updatePage(stock_code):
     content = re.sub(r"\{% note_info %\}", str(data_from_database[0]), content) # 通过正则替换掉 html 模板内的 {% note_info %} 这个占位符
     # 3.返回数据
     return content
+
+
+
+@route(r"/update/(\d+)/(.*)\.html") # 修改股票备注的方法 => (\d+)/(.*) 表示取出两位参数, 比如 000073 跟 “备注”
+def commit_update(stock_code, stock_comment):
+
+    # 1. 查询数据库
+    db = pymysql.connect(host='localhost', port=3306, user='root', password='123456', database='stock_db', charset='utf8') # 一: 连接数据库服务器
+    cursor = db.cursor() # 二: 获取游标(用来操作数据库, 执行 sql 语句, 获取结果)
+    
+    # 2: 执行 sql 语句, 🔥inner join info on focus.info_id=info.id 表示 外键值相同的情况下        
+    sql = """update focus inner join info on focus.info_id=info.id 
+    		 set focus.note_info=%s where info.code=%s;
+       		"""
+    cursor.execute(sql, [stock_code, stock_comment]) # 👈 为了避免 sql 注入, 使用 MYSQL 自带的功能参数化
+    db.commit() # 🔥提交数据
+    
+	# 3: 关闭游标
+    cursor.close() 
+    
+    # 4: 关闭数据库服务器连接
+    db.close() 
+
+    # 5.返回数据
+    return "✅ 数据修改成功!"
 
 
 

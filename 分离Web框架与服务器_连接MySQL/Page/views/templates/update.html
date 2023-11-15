@@ -4,32 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Custom Page</title>
-<link rel="stylesheet" href="css/styles.css">
+
 </head>
 <body>
 
 <div class="custom-table">
-  <table>
-    <thead>
-      <tr>
-        <th>股票代码</th>
-        <th>备注信息</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{% stock_code %}</td>
-        <td>
-			<input type="text" name="input" value="{% note_info %}">
-		</td>
-        <td><button>修改</button></td>
-      </tr>
-      <!-- Additional rows as needed -->
-    </tbody>
-  </table>
+	<form id="stockForm" action="/update" method="get">
+		<table>
+			<thead>
+			<tr>
+				<th>股票代码</th>
+				<th>备注信息</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>
+					<p id="stockCode">
+						{% stock_code %}
+					</p>
+				</td>
+				<td>
+					<td><input type="text" id="noteInfo" name="noteInfo" value="{% note_info %}"></td>
+				</td>
+				<td>
+					<button type="submit">修改</button>
+				</td>
+			</tr>
+			<!-- Additional rows as needed -->
+			</tbody>
+		</table>
+	</form>
 </div>
 
-<script src="js/main.js"></script>
 </body>
 </html>
