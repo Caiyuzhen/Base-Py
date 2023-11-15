@@ -31,25 +31,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-	print(11)
+	console.log(11)
 
-	// 发送表单请求
-	const formInfo = document.getElementById('stockForm')
-	if(formInfo) {
-		formInfo.addEventListener('submit', function(event) {
-			print(12)
-			event.preventDefault(); // 阻止表单的默认提交行为
+	// 用 js 来提交表单请求
+	document.addEventListener('DOMContentLoaded', function() {
+		const form = document.getElementById('stockForm');
+		console.log(form);
 	
-			var stockCode = document.getElementById('stockCode').value;
-			var noteInfo = document.getElementById('noteInfo').textContent;
+		if (form) {
+			form.addEventListener('submit', function(event) {
+				event.preventDefault(); // 阻止表单的默认提交行为
 	
-			// 构建目标URL
-			var targetUrl = 'http://localhost:8080/update/' + stockCode + '/' + noteInfo + '.html';
-			print("打印出提交路径:", targetUrl)
+				const stockCodeElement = document.getElementById('stockCode');
+				const noteInfoElement = document.getElementById('noteInfo');
 	
-			// 导航到目标URL
-			window.location.href = targetUrl;
-		});
-	}
+				if (stockCodeElement && noteInfoElement) {
+					const stockCode = stockCodeElement.textContent.trim();
+					const noteInfo = noteInfoElement.value.trim();
+	
+					// 🚀🚀 构建 form 请求的目标 url
+					const actionUrl = '/updateInfo/' + encodeURIComponent(stockCode) + '/' + encodeURIComponent(noteInfo) + '.html';
+					
+					// 设置表单的action属性
+					form.action = actionUrl;
+	
+					// 提交表单
+					form.submit();
+				} else {
+					console.error('Element IDs do not match or missing values.');
+				}
+			});
+		}
+	});
 	
 });

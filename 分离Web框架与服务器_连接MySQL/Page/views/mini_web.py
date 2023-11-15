@@ -2,6 +2,7 @@ import re
 import time
 from contextlib import contextmanager # 🔥 上下文管理器装饰器（可以用来补充路径）
 import pymysql # 🔥操作数据库的包 pip3 install pymysql  ｜ 🔥记得安装 pip install cryptography 包用来认证并连接数据库 => 国内可以用清华镜像 pip install cryptography -i https://pypi.tuna.tsinghua.edu.cn/simple
+from urllib.parse import unquote # 解码中文字符
 # from middlewares.log_middleware import log_middlewareFn 
 
 
@@ -149,7 +150,7 @@ def focus():
 def update_stockPage_detail(stock_code):
     
     # 1. 打开 html 模板
-    with mini_open_static("/update.html", "r") as f:
+    with mini_open_static("/updatePage.html", "r") as f:
         content = f.read()
         
     # 2. 查询数据库
@@ -174,28 +175,38 @@ def update_stockPage_detail(stock_code):
 
 
 
-@route(r"/update/(\d+)/(.*)\.html") # 修改股票备注的方法 => (\d+)/(.*) 表示取出两位参数, 比如 000073 跟 “备注”
+@route(r"/updateInfo/(\d+)/(.*)\.html") # 修改股票备注的方法 => (\d+)/(.*) 表示取出两位参数, 比如 000073 跟 “备注”
 def commit_update(stock_code, stock_comment):
-
-    # 1. 查询数据库
-    db = pymysql.connect(host='localhost', port=3306, user='root', password='123456', database='stock_db', charset='utf8') # 一: 连接数据库服务器
-    cursor = db.cursor() # 二: 获取游标(用来操作数据库, 执行 sql 语句, 获取结果)
+	print("开始更新数据")
+	# 对 url 进行解码, 比如中文会乱码
+	stock_comment = unquote(stock_comment)
+ 
+	# 1. 查询数据库
+	db = pymysql.connect(host='localhost', port=3306, user='root', password='123456', database='stock_db', charset='utf8') # 一: 连接数据库服务器
+	cursor = db.cursor() # 二: 获取游标(用来操作数据库, 执行 sql 语句, 获取结果)
     
     # 2: 执行 sql 语句, 🔥inner join info on focus.info_id=info.id 表示 外键值相同的情况下        
-    sql = """update focus inner join info on focus.info_id=info.id 
-    		 set focus.note_info=%s where info.code=%s;
+	sql = """  
+ 			UPDATE focus 
+            INNER JOIN info ON focus.info_id=info.id 
+            SET focus.note_info=%s 
+            WHERE info.stock_code=%s;
        		"""
-    cursor.execute(sql, [stock_code, stock_comment]) # 👈 为了避免 sql 注入, 使用 MYSQL 自带的功能参数化
-    db.commit() # 🔥提交数据
-    
+	cursor.execute(sql, [stock_code, stock_comment]) # 👈 为了避免 sql 注入, 使用 MYSQL 自带的功能参数化
+	db.commit() # 🔥提交数据
+	
 	# 3: 关闭游标
-    cursor.close() 
-    
-    # 4: 关闭数据库服务器连接
-    db.close() 
+	cursor.close() 
+	
+	# 4: 关闭数据库服务器连接
+	db.close() 
+	print("更新数据成功!")
+ 
+	# 5.返回数据
+	with mini_open_static("/successfulPage.html", "r") as f:
+		content = f.read()
+	return content
 
-    # 5.返回数据
-    return "✅ 数据修改成功!"
 
 
 

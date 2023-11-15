@@ -9,7 +9,7 @@
 <body>
 
 <div class="custom-table">
-	<form id="stockForm" action="/update" method="get">
+	<form id="stockForm" action="/updateInfo/{% stock_code %}/{% note_info %}" method="post">
 		<table>
 			<thead>
 			<tr>
@@ -26,7 +26,7 @@
 					</p>
 				</td>
 				<td>
-					<td><input type="text" id="noteInfo" name="noteInfo" value="{% note_info %}"></td>
+					<input type="text" id="noteInfo" name="noteInfo" value="{% note_info %}">
 				</td>
 				<td>
 					<button type="submit">修改</button>
