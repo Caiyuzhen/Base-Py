@@ -9,7 +9,7 @@
 <body>
 
 <div class="custom-table">
-	<form id="stockForm" action="/update" method="get">
+	<form id="stockForm" action="/updateInfo/{% stock_code %}/{% note_info %}" method="post">
 		<table>
 			<thead>
 			<tr>
@@ -26,9 +26,13 @@
 					</p>
 				</td>
 				<td>
+<<<<<<< HEAD:分离Web框架与服务器_连接MySQL/Page/views/templates/update.html
 					<td>
 						<input type="text" id="noteInfo" name="noteInfo" value="{% note_info %}">
 					</td>
+=======
+					<input type="text" id="noteInfo" name="noteInfo" value="{% note_info %}">
+>>>>>>> 7064f293ce53cb1ef480631b38b21d6d2d7b0afa:分离Web框架与服务器_连接MySQL/Page/views/templates/updatePage.html
 				</td>
 				<td>
 					<button type="submit">修改</button>
