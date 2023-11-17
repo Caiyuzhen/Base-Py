@@ -1388,3 +1388,13 @@ INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac 
 INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /update/002026.html HTTP/1.1
 INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): POST POST /updateInfo/002026/%E6%94%BF%E7%AD%96%E5%88%A9%E5%A5%BD HTTP/1.1
 >>>>>>> 7064f293ce53cb1ef480631b38b21d6d2d7b0afa
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /update/002026.html HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /js/update.js HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /update/000037.html HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /js/update.js HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /update/000037.html HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /js/update.js HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /update/000037.html HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /js/update.js HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /update/000037.html HTTP/1.1
+INFO:root:Request from 127.0.0.1 (User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36): GET GET /js/update.js HTTP/1.1

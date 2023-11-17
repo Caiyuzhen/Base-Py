@@ -29,42 +29,5 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Initialize the carousel by showing the first slide
 	showSlide(currentSlideIndex);
 
-<<<<<<< HEAD
-=======
-
-
-	console.log(11)
-
-	// 用 js 来提交表单请求
-	document.addEventListener('DOMContentLoaded', function() {
-		const form = document.getElementById('stockForm');
-		console.log(form);
-	
-		if (form) {
-			form.addEventListener('submit', function(event) {
-				event.preventDefault(); // 阻止表单的默认提交行为
-	
-				const stockCodeElement = document.getElementById('stockCode');
-				const noteInfoElement = document.getElementById('noteInfo');
-	
-				if (stockCodeElement && noteInfoElement) {
-					const stockCode = stockCodeElement.textContent.trim();
-					const noteInfo = noteInfoElement.value.trim();
-	
-					// 🚀🚀 构建 form 请求的目标 url
-					const actionUrl = '/updateInfo/' + encodeURIComponent(stockCode) + '/' + encodeURIComponent(noteInfo) + '.html';
-					
-					// 设置表单的action属性
-					form.action = actionUrl;
-	
-					// 提交表单
-					form.submit();
-				} else {
-					console.error('Element IDs do not match or missing values.');
-				}
-			});
-		}
-	});
->>>>>>> 7064f293ce53cb1ef480631b38b21d6d2d7b0afa
 	
 });
