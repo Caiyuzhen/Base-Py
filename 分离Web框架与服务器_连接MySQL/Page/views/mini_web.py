@@ -173,7 +173,7 @@ def update_stockPage_detail(stock_code):
     return content
 
 
-
+# 👇用 js 去 发送下面这个请求
 @route(r"/update/(\d+)/(.*)\.html") # 修改股票备注的方法 => (\d+)/(.*) 表示取出两位参数, 比如 000073 跟 “备注”
 def commit_update(stock_code, stock_comment):
 

@@ -29,27 +29,5 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Initialize the carousel by showing the first slide
 	showSlide(currentSlideIndex);
 
-
-
-	print(11)
-
-	// 发送表单请求
-	const formInfo = document.getElementById('stockForm')
-	if(formInfo) {
-		formInfo.addEventListener('submit', function(event) {
-			print(12)
-			event.preventDefault(); // 阻止表单的默认提交行为
-	
-			var stockCode = document.getElementById('stockCode').value;
-			var noteInfo = document.getElementById('noteInfo').textContent;
-	
-			// 构建目标URL
-			var targetUrl = 'http://localhost:8080/update/' + stockCode + '/' + noteInfo + '.html';
-			print("打印出提交路径:", targetUrl)
-	
-			// 导航到目标URL
-			window.location.href = targetUrl;
-		});
-	}
 	
 });
